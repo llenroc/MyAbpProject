@@ -1,0 +1,29 @@
+﻿@using Abp.Web.Mvc.Extensions
+
+@{
+    ViewBag.ActiveMenu = "Barcodes";
+}
+
+
+
+@section scripts
+{
+    @Html.IncludeStyle("~/Content/bootstraptable/bootstrap-table.min.css")
+    @Html.IncludeScript("~/Scripts/bootstraptable/bootstrap-table.min.js")
+    @Html.IncludeScript("~/Views/Barcodes/GridIndex.js")
+}
+
+
+
+
+<table id="table" data-classes="table table-hover table-condensed">
+    <thead>
+        <tr>
+            <th data-field="state" data-checkbox="true" data-sortable="false"></th>
+            <th data-field="Id">@L("Id")</th>
+            <th data-field="SerialNumber">@L("SerialNumber")</th>
+            <th data-field="CreationTime">@L("CreationTime")</th>
+            <th data-field="Description">@L("Description")</th>
+        </tr>
+    </thead>
+</table>
