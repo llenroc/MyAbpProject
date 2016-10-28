@@ -1,0 +1,76 @@
+﻿@using Abp.Web.Mvc.Extensions
+
+@model MyAbpProject.Dtos.PagedOutput<MyAbpProject.Localization.Dtos.ApplicationLanguageTextDto>
+
+@{
+    ViewBag.ActiveMenu = "ApplicationLanuageTexts";
+}
+
+@section scripts
+{
+    @Html.IncludeScript("~/Views/ApplicationLanguageTexts/Index.js")
+    @Html.IncludeScript("~/Views/ApplicationLanguageTexts/Create.js")
+    @Html.IncludeScript("~/Views/ApplicationLanguageTexts/Edit.js")
+    @Html.IncludeScript("~/Views/ApplicationLanguageTexts/Delete.js")
+
+    @Html.IncludeScript("~/Scripts/jqgrid/js/jquery.jqGrid.min.js")
+    @Html.IncludeStyle("~/Scripts/jqgrid/css/ui.jqgrid.css")
+}
+
+@RenderPage("Create.cshtml")
+@RenderPage("Edit.cshtml")
+@RenderPage("Delete.cshtml")
+
+<div>
+    <h1>@L("ApplicationLanguageTexts")</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <button data-toggle="modal" data-target="#ApplicationLanguageTextCreateModal" class="btn btn-success pull-right"><i class="fa fa-plus"></i> @L("Create")@L("New")@L("ApplicationLanguageText")</button>
+            <table class="table" id="ApplicationLanguageTexts">
+                <thead>
+                    <tr>
+                        <th>@L("Id")</th>
+                        <th>@L("Source")</th>
+                        <th>@L("LanguageName")</th>
+                        <th>@L("Key")</th>
+                        <th>@L("Value")</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var applicationLanguageText in Model.Items)
+                    {
+                        <tr>
+                            <td>@applicationLanguageText.Id</td>
+                            <td>@applicationLanguageText.Source</td>
+                            <td>@applicationLanguageText.LanguageName</td>
+                            <td>@applicationLanguageText.Key</td>
+                            <td>@applicationLanguageText.Value</td>
+                            <td>
+                                <button name="edit" value="@applicationLanguageText.Id" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>@L("Edit")</button>
+                                <button name="delete" value="@applicationLanguageText.Id" class="btn btn-danger btn-sm"><i class="fa fa-remove"></i>@L("Delete")</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination" id="Pagination">
+                    <li><a href="?page=0">@L("FirstPage")</a></li>
+                    @for (int i = 0; i < Model.PageCount; i++)
+                    {
+                        if (i == Model.CurrentPage)
+                        {
+                            <li class="active"><a href="?page=@i">@(i + 1)</a></li>
+                        }
+                        else
+                        {
+                        <li><a href="?page=@i">@(i + 1)</a></li>
+                        }
+                    }
+                    <li><a href="?page=@(Model.PageCount - 1)">@L("LastPage")</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
